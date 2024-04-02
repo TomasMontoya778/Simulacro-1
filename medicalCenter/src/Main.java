@@ -1,3 +1,4 @@
+import Controller.especializacionController;
 import Controller.pacienteController;
 import Database.ConfigDB;
 
@@ -15,7 +16,7 @@ public class Main {
                     4. Menú para Eliminar.
                     5. Salir.
                     """);
-            switch (option){
+            switch (option) {
                 case "1":
                     String optionInsert;
                     do {
@@ -27,9 +28,9 @@ public class Main {
                                 4. Insertar Cita.
                                 5. Salir.
                                 """);
-                        switch (optionInsert){
+                        switch (optionInsert) {
                             case "1":
-
+                                especializacionController.insertEsp();
                                 break;
                             case "2":
 
@@ -41,9 +42,78 @@ public class Main {
 
                                 break;
                         }
-                    }while (!optionInsert.equals("5"));
+                    } while (!optionInsert.equals("5"));
+                    break;
+                case "2":
+                    String optionList;
+                    do {
+                        optionList = JOptionPane.showInputDialog("""
+                                --------Menú Para Listar------
+                                1. Listar Especialidad.
+                                2. Listar Médico.
+                                3. Listar Paciente.
+                                4. listar Cita.
+                                5. Salir.
+                                """);
+                        switch (optionList) {
+                            case "1":
+                                especializacionController.listEsp();
+                                break;
+                            case "2":
+
+                                break;
+                            case "3":
+
+                                break;
+                            case "4":
+
+                                break;
+                        }
+                    } while (!optionList.equals("5"));
+                    break;
+                case "3":
+                    String optionUpdate;
+                    do {
+                        optionUpdate = JOptionPane.showInputDialog(null, """
+                                --------Menú Para Actualizar------
+                                1. Actualizar Especialidad.
+                                2. Actualizar Médico.
+                                3. Actualizar Paciente.
+                                4. Actualizar Cita.
+                                5. Salir.
+                                """);
+                        switch (optionUpdate) {
+                            case "1":
+                                especializacionController.updateEsp();
+                                break;
+                            case "2":
+                                break;
+                            case "3":
+                                break;
+                            case "4":
+                                break;
+                        }
+                    } while (!optionUpdate.equals("5"));
+                    break;
+                case "4":
+                    String optionDelete = "";
+                    do {
+                        optionDelete = JOptionPane.showInputDialog(null, """
+                                --------Menú Para Eliminar------
+                                1. Eliminar Especialidad.
+                                2. Eliminar Médico.
+                                3. Eliminar Paciente.
+                                4. Eliminar Cita.
+                                5. Salir.
+                                """);
+                        switch (optionDelete){
+                            case "1":
+                                especializacionController.deleteEsp();
+                                break;
+                        }
+                    }while (!optionDelete.equals("5"));
                     break;
             }
-        }while (!option.equals("5"));
+        } while (!option.equals("5"));
     }
 }

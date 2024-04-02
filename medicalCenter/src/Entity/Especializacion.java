@@ -39,9 +39,9 @@ public class Especializacion {
 
     @Override
     public String toString() {
-        return "\n---------------Especializacion------------" +
-                "\nidEspecializacion: " + id_especializacion +
-                "\nNombre de la Especialización: " + nombreEsp +
+        return "\n---------------Especialidad---------------" +
+                "\nIdentificador: " + id_especializacion +
+                "\nNombre de la Especialidad: " + nombreEsp +
                 "\nDescripción: " + description;
     }
 }
