@@ -63,7 +63,7 @@ public class Main {
 
                                 break;
                             case "3":
-
+                                pacienteController.listPaciente();
                                 break;
                             case "4":
 
@@ -89,6 +89,7 @@ public class Main {
                             case "2":
                                 break;
                             case "3":
+                                pacienteController.updatePaciente();
                                 break;
                             case "4":
                                 break;
