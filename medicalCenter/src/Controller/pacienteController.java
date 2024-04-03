@@ -113,4 +113,66 @@ public class pacienteController {
             }while (!option.equals("6"));
         }
     }
+    public static void findByDocument(){
+        PacienteModel objPacienteModel = new PacienteModel();
+        int DNI = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el número de documento del paciente que quiere buscar. (Recuerda que el máximo de caracteres es 10)"));
+        Paciente objPaciente = objPacienteModel.findByDNI(DNI);
+        if (objPaciente == null) {
+            JOptionPane.showMessageDialog(null, "No hay pacientes ingresados con ese número de identificación.");
+        }else {
+            JOptionPane.showMessageDialog(null,objPaciente.toString());
+        }
+    }
+    public static void deletePaciente() {
+        PacienteModel objPacienteModel = new PacienteModel();
+        int idToDelete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del que quiere eliminar. (Recuerde que si elimina un paciente se eliminarán todas las citas reservadas de ese paciente.)\n" + listPacienteString()));
+        Paciente objPaciente = objPacienteModel.findById(idToDelete);
+        if (objPaciente == null) {
+            JOptionPane.showMessageDialog(null, "El ID no se encuentra.");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(null, "Estás seguro que quieres eliminar ese paciente?\n" + objPaciente);
+            if (confirm == 0) {
+                objPacienteModel.delete(objPaciente);
+            }
+        }
+    }
+    public static void listByName(){
+        PacienteModel objPacienteModel = new PacienteModel();
+        String name =JOptionPane.showInputDialog(null, "Ingresa el Nombre de los pacientes que quieres buscar.");
+        String text = "";
+        for (Paciente temp : objPacienteModel.listPacienteByName(name)){
+            if (temp == null) {
+                JOptionPane.showMessageDialog(null, "No hay Pacientes registrados con ese nombre.");
+            }else {
+                text += temp.toString();
+            }
+        }
+        JOptionPane.showMessageDialog(null, "----Pacientes Encontrados----\n"+text);
+    }
+    public static void listByLastName(){
+        PacienteModel objPacienteModel = new PacienteModel();
+        String Lastname =JOptionPane.showInputDialog(null, "Ingresa el Nombre de los pacientes que quieres buscar.");
+        String text = "";
+        for (Paciente temp : objPacienteModel.listPacienteByLastName(Lastname)){
+            if (temp == null) {
+                JOptionPane.showMessageDialog(null, "No hay Pacientes registrados con esos apellidos.");
+            }else {
+                text += temp.toString();
+            }
+        }
+        JOptionPane.showMessageDialog(null, "----Pacientes Encontrados----\n"+text);
+    }
+    public static void listByBirthDate(){
+        PacienteModel objPacienteModel = new PacienteModel();
+        String birth =JOptionPane.showInputDialog(null, "Ingresa el/los Apellidos/s de los pacientes que quieres buscar.  (YYYY/MM/DD)");
+        String text = "";
+        for (Paciente temp : objPacienteModel.listPacienteByBirthDate(birth)){
+            if (temp == null) {
+                JOptionPane.showMessageDialog(null, "No hay Pacientes registrados con esa fecha de nacimiento.");
+            }else {
+                text += temp.toString();
+            }
+        }
+        JOptionPane.showMessageDialog(null, "----Pacientes Encontrados----\n"+text);
+    }
 }

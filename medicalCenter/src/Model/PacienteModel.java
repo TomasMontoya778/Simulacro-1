@@ -39,7 +39,31 @@ public class PacienteModel implements CRUD {
         }
         return objPaciente;
     }
-
+    public Paciente findByDNI(int DNI){
+        Connection objConnetion = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = """
+                    SELECT * FROM paciente WHERE documento_identidad = ?;
+                    """;
+            PreparedStatement prepared = objConnetion.prepareStatement(sql);
+            prepared.setInt(1, DNI);
+            ResultSet resultSet = prepared.executeQuery();
+            while (resultSet.next()){
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
+                objPaciente.setNombrePaciente(resultSet.getString("name"));
+                objPaciente.setApellidoPaciente(resultSet.getString("lastName"));
+                objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
+                objPaciente.setDNI(resultSet.getInt("documento_identidad"));
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }finally {
+            ConfigDB.closeConnection();
+        }
+        return objPaciente;
+    }
     public Paciente findById (int id){
         Connection objConnetion = ConfigDB.openConnection();
         Paciente objPaciente = null;
@@ -92,7 +116,6 @@ public class PacienteModel implements CRUD {
         }
         return listPaciente;
     }
-
     @Override
     public boolean update(Object obj) {
         boolean flag = true;
@@ -122,9 +145,110 @@ public class PacienteModel implements CRUD {
         }
         return flag;
     }
-
     @Override
     public boolean delete(Object obj) {
-        return false;
+        boolean flag = false;
+        Connection objconnection = ConfigDB.openConnection();
+        Paciente objPaciente = (Paciente) obj;
+        try {
+            String slqDelete = """
+                    DELETE FROM paciente WHERE id_paciente = ?;
+                    """;
+            PreparedStatement prepared = objconnection.prepareStatement(slqDelete);
+            prepared.setInt(1, objPaciente.getId_paciente());
+            int totalAffectedRows = prepared.executeUpdate();
+            if (totalAffectedRows > 0) {
+                flag = true;
+                JOptionPane.showMessageDialog(null, "El paciente fue eliminado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Algo ha salido mal...");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
+        }
+        return flag;
+    }
+    public ArrayList<Paciente> listPacienteByName(String name){
+        ArrayList<Paciente> listPaciente = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = """
+                    SELECT * FROM paciente WHERE name LIKE ?;
+                    """;
+            PreparedStatement prepared = objConnection.prepareStatement(sql);
+            prepared.setString(1, "%"+ name+ "%");
+            ResultSet resultSet = prepared.executeQuery();
+            while (resultSet.next()){
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
+                objPaciente.setNombrePaciente(resultSet.getString("name"));
+                objPaciente.setApellidoPaciente(resultSet.getString("lastName"));
+                objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
+                objPaciente.setDNI(resultSet.getInt("documento_identidad"));
+                listPaciente.add(objPaciente);
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }finally {
+            ConfigDB.closeConnection();
+        }
+        return listPaciente;
+    }
+    public ArrayList<Paciente> listPacienteByLastName(String lastName){
+        ArrayList<Paciente> listPaciente = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = """
+                    SELECT * FROM paciente WHERE lastName LIKE ?;
+                    """;
+            PreparedStatement prepared = objConnection.prepareStatement(sql);
+            prepared.setString(1, "%"+ lastName+ "%");
+            ResultSet resultSet = prepared.executeQuery();
+            while (resultSet.next()){
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
+                objPaciente.setNombrePaciente(resultSet.getString("name"));
+                objPaciente.setApellidoPaciente(resultSet.getString("lastName"));
+                objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
+                objPaciente.setDNI(resultSet.getInt("documento_identidad"));
+                listPaciente.add(objPaciente);
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }finally {
+            ConfigDB.closeConnection();
+        }
+        return listPaciente;
+    }
+    public ArrayList<Paciente> listPacienteByBirthDate(String birth){
+        ArrayList<Paciente> listPaciente = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = """
+                    SELECT * FROM paciente WHERE fecha_nacimiento LIKE ?;
+                    """;
+            PreparedStatement prepared = objConnection.prepareStatement(sql);
+            prepared.setString(1, "%"+ birth+ "%");
+            ResultSet resultSet = prepared.executeQuery();
+            while (resultSet.next()){
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
+                objPaciente.setNombrePaciente(resultSet.getString("name"));
+                objPaciente.setApellidoPaciente(resultSet.getString("lastName"));
+                objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
+                objPaciente.setDNI(resultSet.getInt("documento_identidad"));
+                listPaciente.add(objPaciente);
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }finally {
+            ConfigDB.closeConnection();
+        }
+        return listPaciente;
     }
 }

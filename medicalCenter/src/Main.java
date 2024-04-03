@@ -52,8 +52,12 @@ public class Main {
                                 1. Listar Especialidad.
                                 2. Listar Médico.
                                 3. Listar Paciente.
-                                4. listar Cita.
-                                5. Salir.
+                                4. Listar Paciente por DNI.
+                                5. Listar Paciente por Nombre.
+                                6. Listar Paciente por Apellido.
+                                7. Listar Paciente por Fecha de nacimiento.
+                                8. listar Cita.
+                                9. Salir.
                                 """);
                         switch (optionList) {
                             case "1":
@@ -66,10 +70,22 @@ public class Main {
                                 pacienteController.listPaciente();
                                 break;
                             case "4":
+                                pacienteController.findByDocument();
+                                break;
+                            case "5":
+                                pacienteController.listByName();
+                                break;
+                            case "6":
+                                pacienteController.listByLastName();
+                                break;
+                            case "7":
+                                pacienteController.listByBirthDate();
+                                break;
+                            case "8":
 
                                 break;
                         }
-                    } while (!optionList.equals("5"));
+                    } while (!optionList.equals("9"));
                     break;
                 case "3":
                     String optionUpdate;
@@ -110,6 +126,13 @@ public class Main {
                         switch (optionDelete){
                             case "1":
                                 especializacionController.deleteEsp();
+                                break;
+                            case "2":
+                                break;
+                            case "3":
+                                pacienteController.deletePaciente();
+                                break;
+                            case "4":
                                 break;
                         }
                     }while (!optionDelete.equals("5"));

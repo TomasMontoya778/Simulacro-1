@@ -105,7 +105,7 @@ public class especializacionController {
         if (objEsp == null) {
             JOptionPane.showMessageDialog(null, "El ID que ingresastes no se encuentra.");
         } else {
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure what do you want to delete that Author?\n" + objEsp);
+            int confirm = JOptionPane.showConfirmDialog(null, "Estás seguro que quieres eliminar esa especialidad?\n" + objEsp);
             if (confirm == 0) {
                 objEspModel.delete(objEsp);
             }
