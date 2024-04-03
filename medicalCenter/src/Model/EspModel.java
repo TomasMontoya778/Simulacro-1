@@ -35,7 +35,6 @@ public class EspModel implements CRUD {
         }
         return objEsp;
     }
-
     @Override
     public List<Object> readAll() {
         List<Object> listEsp = new ArrayList<>();
@@ -61,7 +60,6 @@ public class EspModel implements CRUD {
         }
         return listEsp;
     }
-
     @Override
     public boolean update(Object obj) {
         boolean flag = true;
@@ -89,7 +87,6 @@ public class EspModel implements CRUD {
         }
         return flag;
     }
-
     public Especializacion findById (int id){
         Connection objConnetion = ConfigDB.openConnection();
         Especializacion objEsp = null;
@@ -113,7 +110,6 @@ public class EspModel implements CRUD {
         }
         return objEsp;
     }
-
     @Override
     public boolean delete(Object obj) {
         boolean flag = false;

@@ -1,4 +1,5 @@
 import Controller.especializacionController;
+import Controller.medicoController;
 import Controller.pacienteController;
 import Database.ConfigDB;
 
@@ -33,7 +34,7 @@ public class Main {
                                 especializacionController.insertEsp();
                                 break;
                             case "2":
-
+                                medicoController.insertMedico();
                                 break;
                             case "3":
                                 pacienteController.insertPatience();
@@ -50,42 +51,46 @@ public class Main {
                         optionList = JOptionPane.showInputDialog("""
                                 --------Menú Para Listar------
                                 1. Listar Especialidad.
-                                2. Listar Médico.
-                                3. Listar Paciente.
-                                4. Listar Paciente por DNI.
-                                5. Listar Paciente por Nombre.
-                                6. Listar Paciente por Apellido.
-                                7. Listar Paciente por Fecha de nacimiento.
-                                8. listar Cita.
-                                9. Salir.
+                                2. Listar Médicos.
+                                3. Listar Todos los Médicos de una especialidad.
+                                4. Listar Paciente.
+                                5. Listar Paciente por DNI.
+                                6. Listar Paciente por Nombre.
+                                7. Listar Paciente por Apellido.
+                                8. Listar Paciente por Fecha de nacimiento.
+                                9. listar Cita.
+                                10. Salir.
                                 """);
                         switch (optionList) {
                             case "1":
                                 especializacionController.listEsp();
                                 break;
                             case "2":
-
+                                medicoController.listMedico();
                                 break;
                             case "3":
-                                pacienteController.listPaciente();
+                                medicoController.listEspMedicos();
                                 break;
                             case "4":
-                                pacienteController.findByDocument();
+                                pacienteController.listPaciente();
                                 break;
                             case "5":
-                                pacienteController.listByName();
+                                pacienteController.findByDocument();
                                 break;
                             case "6":
-                                pacienteController.listByLastName();
+                                pacienteController.listByName();
                                 break;
                             case "7":
-                                pacienteController.listByBirthDate();
+                                pacienteController.listByLastName();
                                 break;
                             case "8":
+                                pacienteController.listByBirthDate();
+                                break;
+                            case "9":
 
                                 break;
                         }
-                    } while (!optionList.equals("9"));
+                    } while (!optionList.equals("10"));
                     break;
                 case "3":
                     String optionUpdate;
@@ -103,6 +108,7 @@ public class Main {
                                 especializacionController.updateEsp();
                                 break;
                             case "2":
+                                medicoController.updatePaciente();
                                 break;
                             case "3":
                                 pacienteController.updatePaciente();

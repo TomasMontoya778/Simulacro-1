@@ -14,14 +14,18 @@ public class pacienteController {
         String lastName = JOptionPane.showInputDialog(null, "Ingrese el apellido del paciente.");
         String dateOfBirth = JOptionPane.showInputDialog(null, "Ingrese la fecha de nacimiento del paciente. (YYYY/MM/DD)");
         int DNI = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el Número de identificación del paciente. (Recuerde que el máximo de números es 10 caracteres)"));
-        Paciente objPatience = new Paciente();
-        objPatience.setNombrePaciente(name);
-        objPatience.setApellidoPaciente(lastName);
-        objPatience.setFechaNacimiento(dateOfBirth);
-        objPatience.setDNI(DNI);
-        objPatience = (Paciente) objPatienceModel.insert(objPatience);
+        if (objPatienceModel.checkDuplicateDNI(DNI)) {
+            JOptionPane.showMessageDialog(null, "El DNI está duplicado.\nNo se agregó corrextamente.");
+        }else {
+            Paciente objPatience = new Paciente();
+            objPatience.setNombrePaciente(name);
+            objPatience.setApellidoPaciente(lastName);
+            objPatience.setFechaNacimiento(dateOfBirth);
+            objPatience.setDNI(DNI);
+            objPatience = (Paciente) objPatienceModel.insert(objPatience);
 
-        JOptionPane.showMessageDialog(null, objPatience.toString());
+            JOptionPane.showMessageDialog(null, objPatience.toString());
+        }
     }
     public static void listPaciente() {
         PacienteModel objPacienteModel = new PacienteModel();

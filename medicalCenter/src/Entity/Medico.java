@@ -4,14 +4,17 @@ public class Medico extends Especializacion{
     private int id_medico;
     private String nombreMedico;
     private String apellidoMedico;
+    private Especializacion especializacion;
     public Medico(){
 
     }
-    public Medico(int id_especializacion, String nombreEsp, String description, int id_medico, String nombreMedico, String apellidoMedico) {
+
+    public Medico(int id_especializacion, String nombreEsp, String description, int id_medico, String nombreMedico, String apellidoMedico, Especializacion especializacion) {
         super(id_especializacion, nombreEsp, description);
         this.id_medico = id_medico;
         this.nombreMedico = nombreMedico;
         this.apellidoMedico = apellidoMedico;
+        this.especializacion = especializacion;
     }
 
     public int getId_medico() {
@@ -38,11 +41,20 @@ public class Medico extends Especializacion{
         this.apellidoMedico = apellidoMedico;
     }
 
+    public Especializacion getEspecializacion() {
+        return especializacion;
+    }
+
+    public void setEspecializacion(Especializacion especializacion) {
+        this.especializacion = especializacion;
+    }
+
     @Override
     public String toString() {
-        return "\n------------Medico-----------" +
+        return "\n------------Médico-----------" +
                 "\nidMedico: " + id_medico +
                 "\nNombre del Médico: " + nombreMedico +
-                "\nApellidos del Médico: " + apellidoMedico;
+                "\nApellidos del Médico: " + apellidoMedico
+                + especializacion;
     }
 }

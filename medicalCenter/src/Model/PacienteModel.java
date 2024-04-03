@@ -251,4 +251,21 @@ public class PacienteModel implements CRUD {
         }
         return listPaciente;
     }
+    public boolean checkDuplicateDNI(int dni){
+        boolean flag = true;
+        Connection objConnection = ConfigDB.openConnection();
+        try {
+            String sqlQuery = "SELECT COUNT(*) FROM paciente WHERE DNI = ?";
+            PreparedStatement preparedStatement = objConnection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, dni);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                flag = count > 0;
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return flag;
+    }
 }
