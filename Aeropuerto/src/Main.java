@@ -1,8 +1,10 @@
 import Controller.AvionController;
 import Controller.PasajeroController;
+import Controller.ReservaController;
 import Controller.VueloController;
 import Database.ConfigDB;
 import Entity.Pasajero;
+import Entity.Reserva;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -12,7 +14,7 @@ public class Main {
         //AvionController.insertAvion();
         //PasajeroController.insertPajero();
         //VueloController.insertVuelo();
-
+        ReservaController.insertReserva();
 
         //List
         //PasajeroController.listPasajero();

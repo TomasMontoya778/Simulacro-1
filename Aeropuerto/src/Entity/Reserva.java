@@ -6,13 +6,13 @@ public class Reserva {
     private int idReserva;
     private Pasajero idPasajero;
     private Vuelo idVuelo;
-    private Date fecha_reserva;
+    private String fecha_reserva;
     private String asiento;
     public Reserva(){
 
     }
 
-    public Reserva(int idReserva, Pasajero idPasajero, Vuelo idVuelo, Date fecha_reserva, String asiento) {
+    public Reserva(int idReserva, Pasajero idPasajero, Vuelo idVuelo, String fecha_reserva, String asiento) {
         this.idReserva = idReserva;
         this.idPasajero = idPasajero;
         this.idVuelo = idVuelo;
@@ -44,11 +44,11 @@ public class Reserva {
         this.idVuelo = idVuelo;
     }
 
-    public Date getFecha_reserva() {
+    public String getFecha_reserva() {
         return fecha_reserva;
     }
 
-    public void setFecha_reserva(Date fecha_reserva) {
+    public void setFecha_reserva(String fecha_reserva) {
         this.fecha_reserva = fecha_reserva;
     }
 
@@ -62,12 +62,10 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" +
-                "idReserva=" + idReserva +
-                ", idPasajero=" + idPasajero +
-                ", idVuelo=" + idVuelo +
-                ", fecha_reserva=" + fecha_reserva +
-                ", asiento='" + asiento + '\'' +
-                '}';
+        return "\n----Reserva----" +
+                "\nfecha de la reserva: " + fecha_reserva +
+                "\nAsiento: " + asiento+"\n"
+                + idPasajero+
+                idVuelo;
     }
 }
