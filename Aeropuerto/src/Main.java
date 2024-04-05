@@ -14,7 +14,7 @@ public class Main {
         //AvionController.insertAvion();
         //PasajeroController.insertPajero();
         //VueloController.insertVuelo();
-        ReservaController.insertReserva();
+        //ReservaController.insertReserva();
 
         //List
         //PasajeroController.listPasajero();
