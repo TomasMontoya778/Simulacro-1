@@ -1,5 +1,6 @@
 import Controller.AvionController;
 import Controller.PasajeroController;
+import Controller.VueloController;
 import Database.ConfigDB;
 import Entity.Pasajero;
 
@@ -10,18 +11,25 @@ public class Main {
         //Insert
         //AvionController.insertAvion();
         //PasajeroController.insertPajero();
+        //VueloController.insertVuelo();
+
 
         //List
         //PasajeroController.listPasajero();
         //AvionController.listAvion();
         //PasajeroController.listByName();
+        //VueloController.listVuelo();
+        //VueloController.listByDestine();
 
         //Update
         //PasajeroController.updateEsp();
         //AvionController.updateAvion();
+        //VueloController.updateVuelo();
+
 
         //Delete
         //PasajeroController.deletePasajero();
         //AvionController.deleteAvion();
+        //VueloController.deleteCita();
     }
 }

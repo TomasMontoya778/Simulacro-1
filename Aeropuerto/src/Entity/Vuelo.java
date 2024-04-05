@@ -5,14 +5,14 @@ import java.util.Date;
 public class Vuelo {
     private int id;
     private String destino;
-    private Date fecha_salida;
+    private String fecha_salida;
     private String hora;
     private Avion idAvion;
     public Vuelo(){
 
     }
 
-    public Vuelo(int id, String destino, Date fecha_salida, String hora, Avion idAvion) {
+    public Vuelo(int id, String destino, String fecha_salida, String hora, Avion idAvion) {
         this.id = id;
         this.destino = destino;
         this.fecha_salida = fecha_salida;
@@ -36,11 +36,11 @@ public class Vuelo {
         this.destino = destino;
     }
 
-    public Date getFecha_salida() {
+    public String getFecha_salida() {
         return fecha_salida;
     }
 
-    public void setFecha_salida(Date fecha_salida) {
+    public void setFecha_salida(String fecha_salida) {
         this.fecha_salida = fecha_salida;
     }
 
@@ -62,12 +62,11 @@ public class Vuelo {
 
     @Override
     public String toString() {
-        return "Vuelo{" +
-                "id=" + id +
-                ", destino='" + destino + '\'' +
-                ", fecha_salida=" + fecha_salida +
-                ", hora='" + hora + '\'' +
-                ", idAvion=" + idAvion +
-                '}';
+        return "\n----Vuelo----" +
+                "\nIndentidicador del vuelo: " + id +
+                "\nDestino: " + destino +
+                "\nFecha de Salida: " + fecha_salida +
+                "\nHora de salida: " + hora +
+                idAvion;
     }
 }
