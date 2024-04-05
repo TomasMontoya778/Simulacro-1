@@ -132,7 +132,28 @@ public class MedicoModel implements CRUD {
 
     @Override
     public boolean delete(Object obj) {
-        return false;
+        boolean flag = false;
+        Connection objconnection = ConfigDB.openConnection();
+        Medico objMedico = (Medico) obj;
+        try {
+            String slqDelete = """
+                    DELETE FROM medico WHERE id = ?;
+                    """;
+            PreparedStatement prepared = objconnection.prepareStatement(slqDelete);
+            prepared.setInt(1, objMedico.getId_medico());
+            int totalAffectedRows = prepared.executeUpdate();
+            if (totalAffectedRows > 0) {
+                flag = true;
+                JOptionPane.showMessageDialog(null, "El Médico fue eliminado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Algo ha salido mal...");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConfigDB.closeConnection();
+        }
+        return flag;
     }
     public Medico findById (int id){
         Connection objConnetion = ConfigDB.openConnection();

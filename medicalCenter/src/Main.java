@@ -1,3 +1,4 @@
+import Controller.citaController;
 import Controller.especializacionController;
 import Controller.medicoController;
 import Controller.pacienteController;
@@ -40,7 +41,7 @@ public class Main {
                                 pacienteController.insertPatience();
                                 break;
                             case "4":
-
+                                citaController.insertCita();
                                 break;
                         }
                     } while (!optionInsert.equals("5"));
@@ -58,8 +59,9 @@ public class Main {
                                 6. Listar Paciente por Nombre.
                                 7. Listar Paciente por Apellido.
                                 8. Listar Paciente por Fecha de nacimiento.
-                                9. listar Cita.
-                                10. Salir.
+                                9. Listar Cita.
+                                10. Listar cita por fecha.
+                                11. Salir.
                                 """);
                         switch (optionList) {
                             case "1":
@@ -87,10 +89,13 @@ public class Main {
                                 pacienteController.listByBirthDate();
                                 break;
                             case "9":
-
+                                citaController.listCita();
+                                break;
+                            case "10":
+                                citaController.listByDate();
                                 break;
                         }
-                    } while (!optionList.equals("10"));
+                    } while (!optionList.equals("11"));
                     break;
                 case "3":
                     String optionUpdate;
@@ -114,6 +119,7 @@ public class Main {
                                 pacienteController.updatePaciente();
                                 break;
                             case "4":
+                                citaController.updateCita();
                                 break;
                         }
                     } while (!optionUpdate.equals("5"));
@@ -134,11 +140,13 @@ public class Main {
                                 especializacionController.deleteEsp();
                                 break;
                             case "2":
+                                medicoController.deleteMedico();
                                 break;
                             case "3":
                                 pacienteController.deletePaciente();
                                 break;
                             case "4":
+                                citaController.deleteCita();
                                 break;
                         }
                     }while (!optionDelete.equals("5"));

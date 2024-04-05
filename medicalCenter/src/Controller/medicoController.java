@@ -122,4 +122,17 @@ public class medicoController {
             }while (!option.equals("4"));
         }
     }
+    public static void deleteMedico(){
+        MedicoModel objMedicoModel = new MedicoModel();
+        int idToDelete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del médico que quiere eliminar. (Recuerde que si elimina un médico se eliminarán todas las citas que tiene agendadas ese médico.)\n" + listMedicoString()));
+        Medico objMedico = objMedicoModel.findById(idToDelete);
+        if (objMedico == null) {
+            JOptionPane.showMessageDialog(null, "El ID no se encuentra disponible.");
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(null, "Estás seguro que quieres eliminar ese médico?\n" + objMedico);
+            if (confirm == 0) {
+                objMedicoModel.delete(objMedico);
+            }
+        }
+    }
 }
