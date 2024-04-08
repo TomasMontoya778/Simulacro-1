@@ -49,9 +49,10 @@ public class CitaModel implements CRUD {
         List<Object> listCita = new ArrayList<>();
         Connection objConnection = ConfigDB.openConnection();
         try {
-            String sqlList = "SELECT cita.id, cita.fecha_cita, cita.hora_cita, cita.motivo, medico.id as id_medico ,medico.name, medico.lastName, paciente.id_paciente ,paciente.name as nombre_paciente, paciente.lastName as apellido_paciente, paciente.fecha_nacimiento, paciente.documento_identidad FROM cita" +
+            String sqlList = "SELECT cita.id, cita.fecha_cita, cita.hora_cita, cita.motivo, medico.id as id_medico ,medico.name, medico.lastName, paciente.id_paciente ,paciente.name as nombre_paciente, paciente.lastName as apellido_paciente, paciente.fecha_nacimiento, paciente.documento_identidad, especializacion.id as esp_id, especializacion.name as esp_name, especializacion.description as esp_descrip FROM cita" +
                     " INNER JOIN medico ON cita.id_medico = medico.id" +
-                    " INNER JOIN paciente ON cita.id_paciente = paciente.id_paciente";
+                    " INNER JOIN paciente ON cita.id_paciente = paciente.id_paciente" +
+                    " INNER JOIN especializacion ON medico.id_especializacion = especializacion.id";
             PreparedStatement prepared = objConnection.prepareStatement(sqlList);
             ResultSet resultSet = prepared.executeQuery();
             while (resultSet.next()) {
@@ -64,6 +65,11 @@ public class CitaModel implements CRUD {
                 objMedico.setId_medico(resultSet.getInt("id_medico"));
                 objMedico.setNombreMedico(resultSet.getString("name"));
                 objMedico.setApellidoMedico(resultSet.getString("lastName"));
+                Especializacion objEsp = new Especializacion();
+                objEsp.setId_especializacion(resultSet.getInt("esp_id"));
+                objEsp.setNombreEsp(resultSet.getString("esp_name"));
+                objEsp.setDescription(resultSet.getString("esp_descrip"));
+
                 Paciente objPaciente = new Paciente();
                 objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
                 objPaciente.setNombrePaciente(resultSet.getString("nombre_paciente"));
@@ -71,6 +77,7 @@ public class CitaModel implements CRUD {
                 objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
                 objPaciente.setDNI(resultSet.getInt("documento_identidad"));
                 objCita.setMedico(objMedico);
+                objMedico.setEspecializacion(objEsp);
                 objCita.setPaciente(objPaciente);
                 listCita.add(objCita);
             }
@@ -86,13 +93,11 @@ public class CitaModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         Cita objCita = null;
         try {
-            String sql = """
-                SELECT c.*, m.id as id_medico, m.name AS nombre_medico, m.lastName AS apellido_medico, m.id_especializacion as esp ,p.* 
-                FROM cita c 
-                INNER JOIN medico m ON c.id_medico = m.id 
-                INNER JOIN paciente p ON c.id_paciente = p.id_paciente 
-                WHERE fecha_cita LIKE ?;
-                """;
+            String sql = "SELECT cita.id, cita.fecha_cita, cita.hora_cita, cita.motivo, medico.id as id_medico ,medico.name, medico.lastName, paciente.id_paciente ,paciente.name as nombre_paciente, paciente.lastName as apellido_paciente, paciente.fecha_nacimiento, paciente.documento_identidad, especializacion.id as esp_id, especializacion.name as esp_name, especializacion.description as esp_descrip FROM cita" +
+                    " INNER JOIN medico ON cita.id_medico = medico.id" +
+                    " INNER JOIN paciente ON cita.id_paciente = paciente.id_paciente" +
+                    " INNER JOIN especializacion ON medico.id_especializacion = especializacion.id" +
+                    " WHERE fecha_cita LIKE ?";
             PreparedStatement prepared = objConnection.prepareStatement(sql);
             prepared.setString(1, "%" + fecha + "%");
             ResultSet resultSet = prepared.executeQuery();
@@ -105,18 +110,22 @@ public class CitaModel implements CRUD {
 
                 Medico objMedico = new Medico();
                 objMedico.setId_medico(resultSet.getInt("id_medico"));
-                objMedico.setNombreMedico(resultSet.getString("nombre_medico"));
-                objMedico.setApellidoMedico(resultSet.getString("apellido_medico"));
+                objMedico.setNombreMedico(resultSet.getString("name"));
+                objMedico.setApellidoMedico(resultSet.getString("lastName"));
                 objCita.setMedico(objMedico);
+                Especializacion objEsp = new Especializacion();
+                objEsp.setId_especializacion(resultSet.getInt("esp_id"));
+                objEsp.setNombreEsp(resultSet.getString("esp_name"));
+                objEsp.setDescription(resultSet.getString("esp_descrip"));
 
                 Paciente objPaciente = new Paciente();
                 objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
-                objPaciente.setNombrePaciente(resultSet.getString("name"));
-                objPaciente.setApellidoPaciente(resultSet.getString("lastName"));
+                objPaciente.setNombrePaciente(resultSet.getString("nombre_paciente"));
+                objPaciente.setApellidoPaciente(resultSet.getString("apellido_paciente"));
                 objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
                 objPaciente.setDNI(resultSet.getInt("documento_identidad"));
                 objCita.setPaciente(objPaciente);
-
+                objMedico.setEspecializacion(objEsp);
                 listCita.add(objCita);
             }
         }catch (SQLException e){
@@ -130,9 +139,11 @@ public class CitaModel implements CRUD {
         Connection objConnetion = ConfigDB.openConnection();
         Cita objCita = null;
         try {
-            String sql = """
-                    SELECT * FROM cita WHERE id = ?;
-                    """;
+            String sql = "SELECT cita.id, cita.fecha_cita, cita.hora_cita, cita.motivo, medico.id as id_medico ,medico.name, medico.lastName, paciente.id_paciente ,paciente.name as nombre_paciente, paciente.lastName as apellido_paciente, paciente.fecha_nacimiento, paciente.documento_identidad, especializacion.id as esp_id, especializacion.name as esp_name, especializacion.description as esp_descrip FROM cita" +
+                    " INNER JOIN medico ON cita.id_medico = medico.id" +
+                    " INNER JOIN paciente ON cita.id_paciente = paciente.id_paciente" +
+                    " INNER JOIN especializacion ON medico.id_especializacion = especializacion.id" +
+                    " WHERE cita.id = ?";
             PreparedStatement preparedStatement = objConnetion.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -142,6 +153,25 @@ public class CitaModel implements CRUD {
                 objCita.setFecha_cita(resultSet.getString("fecha_cita"));
                 objCita.setHora_cita(resultSet.getString("hora_cita"));
                 objCita.setMotivo(resultSet.getString("motivo"));
+
+                Medico objMedico = new Medico();
+                objMedico.setId_medico(resultSet.getInt("id_medico"));
+                objMedico.setNombreMedico(resultSet.getString("name"));
+                objMedico.setApellidoMedico(resultSet.getString("lastName"));
+                objCita.setMedico(objMedico);
+                Especializacion objEsp = new Especializacion();
+                objEsp.setId_especializacion(resultSet.getInt("esp_id"));
+                objEsp.setNombreEsp(resultSet.getString("esp_name"));
+                objEsp.setDescription(resultSet.getString("esp_descrip"));
+
+                Paciente objPaciente = new Paciente();
+                objPaciente.setId_paciente(resultSet.getInt("id_paciente"));
+                objPaciente.setNombrePaciente(resultSet.getString("nombre_paciente"));
+                objPaciente.setApellidoPaciente(resultSet.getString("apellido_paciente"));
+                objPaciente.setFechaNacimiento(resultSet.getString("fecha_nacimiento"));
+                objPaciente.setDNI(resultSet.getInt("documento_identidad"));
+                objCita.setPaciente(objPaciente);
+                objMedico.setEspecializacion(objEsp);
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());

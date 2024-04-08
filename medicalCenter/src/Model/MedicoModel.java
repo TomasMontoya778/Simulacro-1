@@ -159,17 +159,22 @@ public class MedicoModel implements CRUD {
         Connection objConnetion = ConfigDB.openConnection();
         Medico objMedico = null;
         try {
-            String sql = """
-                    SELECT * FROM medico WHERE id = ?;
-                    """;
+            String sql = "SELECT medico.id as id_medico ,medico.name, medico.lastName, especializacion.id as esp_id, especializacion.name as esp_name, especializacion.description as esp_descrip FROM medico" +
+                    " INNER JOIN especializacion ON medico.id_especializacion = especializacion.id" +
+                    " WHERE medico.id = ?";
             PreparedStatement preparedStatement = objConnetion.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 objMedico = new Medico();
-                objMedico.setId_medico(resultSet.getInt("id"));
+                objMedico.setId_medico(resultSet.getInt("id_medico"));
                 objMedico.setNombreMedico(resultSet.getString("name"));
                 objMedico.setApellidoMedico(resultSet.getString("lastName"));
+                Especializacion objEsp = new Especializacion();
+                objEsp.setId_especializacion(resultSet.getInt("esp_id"));
+                objEsp.setNombreEsp(resultSet.getString("esp_name"));
+                objEsp.setDescription(resultSet.getString("esp_descrip"));
+                objMedico.setEspecializacion(objEsp);
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());

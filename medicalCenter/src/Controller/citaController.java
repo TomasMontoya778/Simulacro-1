@@ -121,7 +121,7 @@ public class citaController {
                         }
                         break;
                     case "3":
-                        String motivo = JOptionPane.showInputDialog(null, "Ingresa el nuevo motivo de la cita. ()");
+                        String motivo = JOptionPane.showInputDialog(null, "Ingresa el nuevo motivo de la cita.");
                         objCita.setMotivo(motivo);
                         int confirm3 = JOptionPane.showConfirmDialog(null, "Estás seguro que quieres actualizar esta cita?\n" + objCita);
                         if (confirm3 == 0) {
@@ -131,7 +131,7 @@ public class citaController {
                     case "4":
                         String fecha2 = JOptionPane.showInputDialog(null, "Ingresa la nueva fecha de la cita. (YYYY/MM/DD)");
                         String hora2 = JOptionPane.showInputDialog(null, "Ingresa la nueva hora de la cita. (HH:MMpm o HH:MMam)");
-                        String motivo2 = JOptionPane.showInputDialog(null, "Ingresa el nuevo motivo de la cita. ()");
+                        String motivo2 = JOptionPane.showInputDialog(null, "Ingresa el nuevo motivo de la cita.");
                         objCita.setFecha_cita(fecha2);
                         objCita.setHora_cita(hora2);
                         objCita.setMotivo(motivo2);
@@ -146,7 +146,7 @@ public class citaController {
     }
     public static void deleteCita(){
         CitaModel objCitaModel = new CitaModel();
-        int idToDelete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la cta que quiere eliminar." + listCitaString()));
+        int idToDelete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la cta que quiere eliminar.\n" + listCitaString()));
         Cita objCita = objCitaModel.findById(idToDelete);
         if (objCita == null) {
             JOptionPane.showMessageDialog(null, "El ID no se encuentra disponible.");
