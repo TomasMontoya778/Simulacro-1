@@ -63,9 +63,10 @@ public class Reserva {
     @Override
     public String toString() {
         return "\n----Reserva----" +
+                "\nIdentificador de la reserva: " + idReserva+
                 "\nfecha de la reserva: " + fecha_reserva +
-                "\nAsiento: " + asiento+"\n"
-                + idPasajero+
+                "\nAsiento: " + asiento
+                +idPasajero+
                 idVuelo;
     }
 }

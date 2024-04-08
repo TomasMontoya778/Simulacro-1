@@ -63,7 +63,7 @@ public class Vuelo {
     @Override
     public String toString() {
         return "\n----Vuelo----" +
-                "\nIndentidicador del vuelo: " + id +
+                "\nIdentificador del vuelo: " + id +
                 "\nDestino: " + destino +
                 "\nFecha de Salida: " + fecha_salida +
                 "\nHora de salida: " + hora +

@@ -52,7 +52,7 @@ public class Pasajero {
     public String toString() {
         return "\n----Pasajero----" +
                 "\nIdentificador del pasajero: " + idPasajero +
-                "\nnombrePasajero: " + nombrePasajero +
+                "\nNombre del Pasajero: " + nombrePasajero +
                 "\nApellidos del Pasajero: " + apellidoPasajero +
                 "\nDocumento de Identidad: " + documento_identidad;
     }

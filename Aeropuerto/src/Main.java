@@ -22,16 +22,19 @@ public class Main {
         //PasajeroController.listByName();
         //VueloController.listVuelo();
         //VueloController.listByDestine();
+        //ReservaController.listReserva();
+        //ReservaController.listReservaFlys();
 
         //Update
         //PasajeroController.updateEsp();
         //AvionController.updateAvion();
         //VueloController.updateVuelo();
-
+        //ReservaController.updateReserva();
 
         //Delete
         //PasajeroController.deletePasajero();
         //AvionController.deleteAvion();
-        //VueloController.deleteCita();
+        //VueloController.deleteVuelo();
+        //ReservaController.deleteReserva();
     }
 }

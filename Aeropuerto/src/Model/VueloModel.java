@@ -45,7 +45,7 @@ public class VueloModel implements CRUD {
 
     @Override
     public List<Object> readAll(){
-        List<Object> listCita = new ArrayList<>();
+        List<Object> listVuelo = new ArrayList<>();
         Connection objConnection = ConfigDB.openConnection();
         try {
             String sqlList = "SELECT vuelo.id_vuelo, vuelo.destino, vuelo.fecha_salida, vuelo.hora, avion.id as id_avion, avion.modelo, avion.capacidad FROM vuelo" +
@@ -63,18 +63,18 @@ public class VueloModel implements CRUD {
                 objAvion.setModelo(resultSet.getString("modelo"));
                 objAvion.setCapacidad(resultSet.getInt("capacidad"));
                 objVuelo.setIdAvion(objAvion);
-                listCita.add(objVuelo);
+                listVuelo.add(objVuelo);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }
-        return listCita;
+        return listVuelo;
     }
 
     public ArrayList<Vuelo> listCitaByDestine(String destine){
-        ArrayList<Vuelo> listCita = new ArrayList<>();
+        ArrayList<Vuelo> listVuelo = new ArrayList<>();
         Connection objConnection = ConfigDB.openConnection();
         Vuelo objVuelo;
         try {
@@ -97,14 +97,14 @@ public class VueloModel implements CRUD {
                 objAvion.setModelo(resultSet.getString("modelo"));
                 objAvion.setCapacidad(resultSet.getInt("capacidad"));
                 objVuelo.setIdAvion(objAvion);
-                listCita.add(objVuelo);
+                listVuelo.add(objVuelo);
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
             ConfigDB.closeConnection();
         }
-        return listCita;
+        return listVuelo;
     }
 
     @Override
@@ -139,9 +139,9 @@ public class VueloModel implements CRUD {
         Connection objConnetion = ConfigDB.openConnection();
         Vuelo objVuelo = null;
         try {
-            String sql = """
-                    SELECT * FROM vuelo WHERE id_vuelo = ?;
-                    """;
+            String sql = "SELECT vuelo.id_vuelo, vuelo.destino, vuelo.fecha_salida, vuelo.hora, avion.id, avion.modelo, avion.capacidad FROM vuelo" +
+                    " INNER JOIN avion on vuelo.id_avion = avion.id" +
+                    " WHERE id_vuelo = ?";
             PreparedStatement preparedStatement = objConnetion.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -151,6 +151,11 @@ public class VueloModel implements CRUD {
                 objVuelo.setDestino(resultSet.getString("destino"));
                 objVuelo.setFecha_salida(resultSet.getString("fecha_salida"));
                 objVuelo.setHora(resultSet.getString("hora"));
+                Avion objAvion = new Avion();
+                objAvion.setId(resultSet.getInt("id"));
+                objAvion.setModelo(resultSet.getString("modelo"));
+                objAvion.setCapacidad(resultSet.getInt("capacidad"));
+                objVuelo.setIdAvion(objAvion);
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());

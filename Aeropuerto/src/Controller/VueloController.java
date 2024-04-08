@@ -127,7 +127,7 @@ public class VueloController {
             }while (!option.equals("5"));
         }
     }
-    public static void deleteCita(){
+    public static void deleteVuelo(){
         VueloModel objVueloModel = new VueloModel();
         int idToDelete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo que quiere eliminar.\n" + listVueloString()));
         Vuelo objVuelo = objVueloModel.findById(idToDelete);
